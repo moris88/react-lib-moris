@@ -66,19 +66,24 @@ OUTPUT BROWSER:
 </div>
 ```
 
-### USECOOKIES
+### USESTORE
 
 ```javascript
-const { store, setStore } =
-  useStore <
-  { count: number } >
-  {
-    defaultValue: { count: 0 },
-    key: 'count',
-  }
+interface useStoreProps<T extends ObjectStore> {
+  defaultValue: T
+  key: string
+}
+
+const useStore = <T extends ObjectStore>({
+  defaultValue,
+  key,
+}: useStoreProps<T>): {
+  store: T
+  setStore: (state: T) => void
+}
 ```
 
-#### Example
+#### Example useStore
 
 ```javascript
 function App() {
@@ -93,6 +98,55 @@ function App() {
       <button
         onClick={() => {
           setStore({ count: store.count + 1 })
+        }}
+      >+</button>
+    </>
+  )
+}
+
+export default App
+```
+
+### USECOOKIES
+
+```javascript
+interface Cookie {
+  key: string
+  value: any
+  expirationDays?: number
+}
+
+const useCookies = <T extends ObjectCookie>(
+  defaultValue?: T
+): {
+  cookies: T
+  setCookie: (coockie: Cookie) => void
+  setCookies: (cookies: T) => void
+  hasCookie: (cookieName: string, key: string) => boolean
+}
+```
+
+#### Example useCookies
+
+```javascript
+import useCookies from './hooks/useCookies'
+
+function App() {
+  const { cookies, setCookie } = useCookies({
+    count: 0,
+  })
+
+  return (
+    <>
+      <label>{cookies.count}</label>:
+      <button
+        onClick={() => {
+          console.log('cookies.count', cookies.count)
+          if (cookies.count === undefined) {
+            setCookie({ key: 'count', value: 1, expirationDays: 1 })
+            return
+          }
+          setCookie({ key: 'count', value: +cookies.count + 1, expirationDays: 1 })
         }}
       >+</button>
     </>
