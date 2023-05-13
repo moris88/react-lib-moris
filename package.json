@@ -1,0 +1,68 @@
+{
+  "name": "react-lib-moris",
+  "version": "0.0.8",
+  "main": "dist/react-lib-moris.umd.js",
+  "module": "dist/react-lib-moris.es.js",
+  "type": "module",
+  "types": "dist/react-lib-moris.es.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/react-lib-moris.es.js",
+      "require": "./dist/react-lib-moris.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --ignore-pattern node_modules/",
+    "prettier": "prettier --config .prettierrc \"src/**/*.ts\" --write",
+    "build": "tsc && vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moris88/react-lib-moris.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": {
+    "name": "Maurizio Tolomeo",
+    "email": "maurizio.tolomeo@outlook.it"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moris88/react-lib-moris/issues"
+  },
+  "homepage": "https://github.com/moris88/react-lib-moris#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.3",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "@vitejs/plugin-react": "^3.0.1",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "2.8.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "vite": "^4.0.4",
+    "vite-plugin-dts": "^1.7.2"
+  }
+}
