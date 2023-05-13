@@ -10,7 +10,9 @@ interface ObjectCookie {
   [name: string]: any
 }
 
-const useCookies = <T extends ObjectCookie>(): {
+const useCookies = <T extends ObjectCookie>(
+  defaultValue?: T
+): {
   cookies: T
   setCookie: (coockie: Cookie) => void
   setCookies: (cookies: T) => void
@@ -23,14 +25,21 @@ const useCookies = <T extends ObjectCookie>(): {
     if (!areObjectsEqual(myCookies, cookies)) setMyCookies(cookies)
   }, [myCookies])
 
+  React.useEffect(() => {
+    if (defaultValue && Object.keys(myCookies).length === 0) {
+      setCookies<T>(defaultValue)
+    }
+  }, [defaultValue, myCookies])
+
   return {
     cookies: myCookies,
     setCookie: (coockie: Cookie) => {
       setCookie(coockie)
+      setMyCookies(getCookies<T>())
     },
     setCookies: (cookies: T) => {
-      setMyCookies(cookies)
       setCookies<T>(cookies)
+      setMyCookies(cookies)
     },
     hasCookie: hasCookieKey,
   }
@@ -53,6 +62,7 @@ function setCookie(coockie: Cookie): void {
 
 function getCookies<T extends ObjectCookie>(): T {
   const cookieString = document.cookie
+  if (cookieString === '') return {} as T
   const cookies = cookieString.split('; ')
 
   const cookieObject: ObjectCookie = {}
